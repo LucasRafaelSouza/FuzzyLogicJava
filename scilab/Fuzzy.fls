@@ -1,0 +1,78 @@
+# sciFLT scilab Fuzzy Logic Toolbox
+<REVISION>
+ <revision>@REV@
+
+<DESCRIPTION>
+ <name>Controle de frenagem
+ <comment>NewComment
+ <type>m
+ <SNorm>max
+ <SNormPar>0
+ <TNorm>min
+ <TNormPar>0
+ <Comp>one
+ <CompPar>0
+ <ImpMethod>min
+ <AggMethod>max
+ <defuzzMethod>centroide
+
+<INPUT>
+ <name>Velocidade
+ <range>0 100
+  <mf_name>Pequena
+   <mf_type>trimf
+   <mf_par>-10.0 10.0 20.0
+  <mf_name>Moderadamente pequena
+   <mf_type>trimf
+   <mf_par>15.0 30.0 45.0
+  <mf_name>Moderada
+   <mf_type>trimf
+   <mf_par>35.0 50.0 65.0
+  <mf_name>Moderadamente alta
+   <mf_type>trimf
+   <mf_par>50.0 70.0 90.0
+  <mf_name>Alta
+   <mf_type>trimf
+   <mf_par>75.0 100.0  110.0 
+
+ <name>Dist?ncia
+ <range>0 40
+  <mf_name>Pequena
+   <mf_type>trimf
+   <mf_par>-2.5 2.5 5.0
+  <mf_name>Moderadamente pequna
+   <mf_type>trimf
+   <mf_par>3.0 6.5 10.0
+  <mf_name>Moderada
+   <mf_type>trimf
+   <mf_par>7.0 14.0 21.0
+  <mf_name>Moderadamente Alta
+   <mf_type>trimf
+   <mf_par>17.0 24.0 31.0
+  <mf_name>Alta
+   <mf_type>trimf
+   <mf_par>25.0 40.0 50.0 
+
+<OUTPUT>
+ <name>Freagem
+ <range>0 100
+  <mf_name>Fraco
+   <mf_type>trimf
+   <mf_par>-5.0 5.0 10.0
+  <mf_name>Moderadamente fraco
+   <mf_type>trimf
+   <mf_par>5.0 15.0 30.0
+  <mf_name>Moderado
+   <mf_type>trimf
+   <mf_par>25.0 37.5 50.0
+  <mf_name>Moderadamente forte
+   <mf_type>trimf
+   <mf_par>45.0 57.5 70.0
+  <mf_name>Forte
+   <mf_type>trimf
+   <mf_par>65.0 100.0 110.0
+
+<RULE>
+5 1 5 1 1.0
+5 4 4 1 1.0
+
