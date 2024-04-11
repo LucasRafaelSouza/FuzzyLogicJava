@@ -1,0 +1,61 @@
+/*	
+
+
+*/
+
+FUNCTION_BLOCK Frenagem
+
+// variáveis de entrada
+VAR_INPUT				
+	velocidade : REAL;
+	distancia : REAL;
+END_VAR
+
+VAR_OUTPUT				
+	freagem : REAL;
+END_VAR
+
+// Fuzzify variáveis de entrada 'velocidade': {'pequena', 'moderadamente pequena' , 'moderada','moderadamente alta','alta'}
+FUZZIFY velocidade			
+	TERM pequena := (0, 1) (25, 0) ; 
+	TERM moderadamente_pequena := (15, 0) (50,1) (75,0);
+	TERM moderada:= (65, 0) (100, 1) (135,0) ;
+	TERM moderadamente_alta:= (120, 0) (150, 1) (170,0) ;
+	TERM alta:= (160, 0) (200, 1);
+END_FUZZIFY
+
+
+// Fuzzify variáveis de entrada 'distancia': {'pequena', 'moderadamente pequena' , 'moderada','moderadamente alta','alta'}
+FUZZIFY distancia			
+	TERM pequena := (0, 1) (25, 1) (45,0) ; 
+	TERM moderadamente_pequena := (40, 0) (65,1) (85,0);
+	TERM moderada:= (80, 0) (120, 1) (160,0) ;
+	TERM moderadamente_alta:= (150, 0) (175, 1) (200,0) ;
+	TERM alta:= (180, 0) (220, 1);
+END_FUZZIFY
+
+// Defzzzify variavel de saida 'freagem' : {'fraco', 'moderadamente fraco', 'medio', 'moderadamente forte', 'forte' }
+DEFUZZIFY freagem			
+	TERM fraco := (0,1) (15,0);
+	TERM moderadamente_fraco := (10,0) (20,1) (30,0);
+	TERM medio := (25,0) (40,1) (55,0);
+	TERM moderadamente_forte := (50,0) (65,1) (80,0);
+	TERM forte := (70,0) (90,1);
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+
+// Regras de inferencia
+RULEBLOCK No1
+	AND : MIN;	// Use 'min' for 'and'
+	OR  : MAX;
+	ACT : MIN;	// Use 'min' activation method
+	ACCU : MAX;	// Use 'max' accumulation method
+
+	RULE 1 : IF distancia IS pequena AND velocidade IS alta THEN freagem IS forte;
+	RULE 2 : IF distancia IS moderadamente_alta AND velocidade IS alta THEN freagem IS moderadamente_forte; 
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
